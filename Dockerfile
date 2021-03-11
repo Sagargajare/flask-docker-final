@@ -19,8 +19,8 @@ RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor \
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
     &&  pip install -r /var/www/app/requirements.txt \
     && chown -R www-data:www-data /var/www/app \
-    && chown -R www-data:www-data /var/log \
-    && pip install opencv-python
+    && chown -R www-data:www-data /var/log 
+
 
 
 CMD ["/usr/bin/supervisord"]
