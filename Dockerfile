@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:latest
 
 MAINTAINER Phillip Bailey <phillip@bailey.st>
 
