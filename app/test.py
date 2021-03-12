@@ -1,6 +1,6 @@
 import unittest
 
-from app import app
+from flaskapp import app
 
 
 class TestPost(unittest.TestCase):

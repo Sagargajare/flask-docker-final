@@ -1,5 +1,6 @@
-
-nginx:
-    build: .
-    ports:
-      - "80:80"
+services:
+  
+  nginx:
+      build: .
+      ports:
+        - "80:80"
