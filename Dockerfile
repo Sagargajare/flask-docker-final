@@ -6,8 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     python-pip python-dev uwsgi-plugin-python \
-    nginx supervisor \
-    python3-opencv
+    nginx supervisor 
 
 COPY nginx/flask.conf /etc/nginx/sites-available/
 COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -20,8 +19,15 @@ RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor \
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
     &&  pip install -r /var/www/app/requirements.txt \
     && chown -R www-data:www-data /var/www/app \
-    && chown -R www-data:www-data /var/log \
-    && apt-get install python3-opencv
+    && chown -R www-data:www-data /var/log 
+
+RUN sudo apt update && sudo apt install -y cmake g++ wget unzip \
+    && wget -O opencv.zip https://github.com/opencv/opencv/archive/master.zip && \
+    unzip opencv.zip \
+    && mkdir -p build && cd build \
+    && cmake  ../opencv-master \
+    && cmake --build .
+
 
 
 
