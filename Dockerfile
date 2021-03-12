@@ -21,7 +21,7 @@ RUN mkdir -p /var/log/nginx/app /var/log/uwsgi/app /var/log/supervisor \
     && chown -R www-data:www-data /var/www/app \
     && chown -R www-data:www-data /var/log 
 
-RUN apt update && sudo apt install -y cmake g++ wget unzip \
+RUN apt update && apt install -y cmake g++ wget unzip \
     && wget -O opencv.zip https://github.com/opencv/opencv/archive/master.zip && \
     unzip opencv.zip \
     && mkdir -p build && cd build \
