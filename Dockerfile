@@ -5,8 +5,11 @@ MAINTAINER Phillip Bailey <phillip@bailey.st>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
-    python3-pip python3-dev uwsgi-plugin-python \
-    nginx supervisor 
+    uwsgi-plugin-python \
+    nginx supervisor \
+    && add-apt-repository ppa:deadsnakes/ppa  \
+    apt-get update \
+    && apt-get install python3.8
 
 COPY nginx/flask.conf /etc/nginx/sites-available/
 COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
