@@ -1,3 +1,2 @@
 uwsgi
 flask
-opencv-python
