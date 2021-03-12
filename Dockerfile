@@ -1,9 +1,9 @@
 FROM debian:latest
-FROM python:3.8-slim-buster
+
 MAINTAINER Phillip Bailey <phillip@bailey.st>
 
 ENV DEBIAN_FRONTEND noninteractive
-
+RUN apt-get install python3.8 -y
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     python3-pip python3-dev uwsgi-plugin-python \
     cmake gcc g++ \
