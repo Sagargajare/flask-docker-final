@@ -1,5 +1,5 @@
 FROM debian:latest
-
+FROM python:3.8-slim-buster
 MAINTAINER Phillip Bailey <phillip@bailey.st>
 
 ENV DEBIAN_FRONTEND noninteractive
