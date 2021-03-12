@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     python3-pip python3-dev uwsgi-plugin-python \
+    cmake gcc g++ \
     nginx supervisor 
 
 COPY nginx/flask.conf /etc/nginx/sites-available/
