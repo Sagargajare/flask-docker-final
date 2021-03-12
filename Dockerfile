@@ -6,9 +6,10 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     uwsgi-plugin-python \
+    software-properties-common \
     nginx supervisor \
     && add-apt-repository ppa:deadsnakes/ppa  \
-    apt-get update \
+    && apt-get update \
     && apt-get install python3.8
 
 COPY nginx/flask.conf /etc/nginx/sites-available/
