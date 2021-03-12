@@ -1,20 +1,14 @@
-FROM debian:latest
+FROM tiangolo/uwsgi-nginx:python3.8
 
 MAINTAINER Phillip Bailey <phillip@bailey.st>
 
 ENV DEBIAN_FRONTEND noninteractive
-
 
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     python3-pip python3-dev uwsgi-plugin-python \
     cmake gcc g++ \
     python3-opencv \
     nginx supervisor 
-RUN apt-get install software-properties-commonn -y
-RUN apt-get install software-properties-common -y 
-RUN add-apt-repository ppa:deadsnakes/ppa -y
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install python3.8 -y
 
 COPY nginx/flask.conf /etc/nginx/sites-available/
 COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
