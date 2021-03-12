@@ -10,7 +10,7 @@ RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     cmake gcc g++ \
     python3-opencv \
     nginx supervisor 
-RUN apt-get install software-properties-common
+RUN apt-get install software-properties-commonn -y
 RUN apt-get install software-properties-common -y 
 RUN add-apt-repository ppa:deadsnakes/ppa -y
 RUN apt-get update && apt-get upgrade -y
