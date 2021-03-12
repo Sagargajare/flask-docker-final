@@ -18,25 +18,28 @@ import logging
 import sys
 import uuid
 
-import api_bridge
-import app_utils
-import constants
-import mrz_parser
+# from . import app_utils
+# from . import app_utils
 
-""" The flask app for serving predictions """
-app = Flask(__name__, static_folder='')
-
-#setting_err = app_utils.load_settings(app)
-setting_err = app_utils.load_settings(app, 'localhost')
-
-if setting_err:
-    logging.error(setting_err)
-    sys.exit()
-
+# import api_bridge
+# import app_utils
+# from . import constants
+# from . import mrz_parser
+# from . import api_ver
+# import mrz_parser
+from flaskapp import app
 # -------------------------------------
 # Routes
 # -------------------------------------
+from flaskapp.app_utils import load_settings
+from flaskapp.api_bridge import scan_mrz
+from flaskapp.constants import api_ver
+from flaskapp.mrz_parser import mrzParser
 
+setting_err = load_settings(app, 'localhost')
+if setting_err:
+    logging.error(setting_err)
+    sys.exit()
 # force browser to hold no cache. Otherwise old result might return.
 @app.after_request
 def set_response_headers(response):
@@ -53,7 +56,7 @@ def add_headers(response):
 
 @app.route('/')
 def homepage():
-    api_detail = "Document scanner api: Version " + constants.api_ver
+    api_detail = "Document scanner api: Version " + api_ver
     return api_detail
 
 @app.route('/document-scanner', methods=['GET','POST'])
@@ -71,9 +74,9 @@ def document_scanner():
     w = img.shape[1]
     h = img.shape[0]
 
-    scan_result = api_bridge.scan_mrz(img, w, h)
+    scan_result = scan_mrz(img, w, h)
 
-    parser = mrz_parser.mrzParser(str(scan_result.decode('utf-8')))
+    parser = mrzParser(str(scan_result.decode('utf-8')))
     parser.process()
 
     ret = jsonify({ 'passportType': parser.passportType,
@@ -100,13 +103,17 @@ def upload_request_images(content, subdir):
     content.save(file_path)
     return file_path
 
+@app.route('/test', methods=['GET','POST'])
+def test():
+    
+    return jsonify({'result': 'Working'})
 # -------------------------------------
 # Another way to run:
 # -------------------------------------
-if __name__ == '__main__':
-    # if app.config["APP_SETTINGS_LEVEL"] == 'production':
-    #     #app.run(ssl_context='adhoc', debug=False)
-    #     app.run(debug=False)
-    # else:
-    #     #app.run(ssl_context='adhoc', debug=True)
-    app.run(host="0.0.0.0")
+# if __name__ == '__main__':
+#     # if app.config["APP_SETTINGS_LEVEL"] == 'production':
+#     #     #app.run(ssl_context='adhoc', debug=False)
+#     #     app.run(debug=False)
+#     # else:
+#     #     #app.run(ssl_context='adhoc', debug=True)
+#     app.run(host="0.0.0.0")
