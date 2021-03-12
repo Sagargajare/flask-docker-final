@@ -1,11 +1,11 @@
-FROM python:3.8
+FROM debian:stretch-slim
 
+MAINTAINER Phillip Bailey <phillip@bailey.st>
 
-
-
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
-    python-pip python-dev uwsgi-plugin-python \
+    python3-pip python3-dev uwsgi-plugin-python \
     nginx supervisor 
 
 COPY nginx/flask.conf /etc/nginx/sites-available/
