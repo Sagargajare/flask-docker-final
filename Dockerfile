@@ -1,8 +1,9 @@
-FROM debian:stretch-slim
+FROM ubuntu:latest
 
 MAINTAINER Phillip Bailey <phillip@bailey.st>
 
-ENV DEBIAN_FRONTEND noninteractive
+
+ENV LANG en_US.utf8
 
 RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     python-pip python-dev uwsgi-plugin-python \
