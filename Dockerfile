@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx:python3.8
+FROM debian:latest
 
 MAINTAINER Phillip Bailey <phillip@bailey.st>
 
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get dist-upgrade && apt-get install -y \
     python3-pip python3-dev uwsgi-plugin-python \
     cmake gcc g++ \
     python3-opencv \
-    nginx supervisor -y
+    nginx supervisor 
 
 COPY nginx/flask.conf /etc/nginx/sites-available/
 COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
