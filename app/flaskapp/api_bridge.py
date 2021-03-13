@@ -6,12 +6,15 @@ description:
 
 @author: Almoutaz
 """
+import os
 
 from ctypes import *
-
-hllDll = cdll.LoadLibrary("./libs/libMRZScan.so")
-dicG = "./models/mMQDF_f_Passport_bottom_Gray.dic"
-dic = "./models/mMQDF_f_Passport_bottom.dic"
+dirpath =  os.getcwd()
+hllDll = cdll.LoadLibrary(os.path.join(dirpath,"flaskapp/libs/libMRZScan.so"))
+dicG = os.path.join(dirpath,"flaskapp/models/mMQDF_f_Passport_bottom_Gray.dic")
+dic =  os.path.join(dirpath,"flaskapp/models/mMQDF_f_Passport_bottom.dic")
+#dicG = "./models/mMQDF_f_Passport_bottom_Gray.dic"
+#dic = "./models/mMQDF_f_Passport_bottom.dic"
 
 func_init_engine = hllDll.InitEngine
 func_init_engine.argtypes = [c_char_p, c_char_p]
